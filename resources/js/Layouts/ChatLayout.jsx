@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 const ChatLayout = ({ children }) => {
     const page = usePage();
     const conversations = page.props.conversations;
-    const selectedConversations = page.props.selectedCoversations;
-    const [localConversation, setLocalConversatioin] = useState([]);
+    const selectedConversation = page.props.selectedCoversation;
+    const [localConversations, setLocalConversatioins] = useState([]);
     const [sortedConversations, setSortedConversations] = useState([]);
     const [onlineUSers, setOnlineUsers] =  useState({});
 
@@ -16,7 +16,34 @@ const ChatLayout = ({ children }) => {
     console.log("conversations", conversations);
     console.log("selectedConversations", selectedConversations);
 
-    
+    useEffect(() =>{
+        setLocalConversatioins(conversations);
+    }, [conversations]);
+
+    useEffect(() =>{
+        setSortedConversations(
+            localConversations.sort((a, b) =>{
+                if (a.blocked_at && b.blocked_at){
+                    return a.blocked_at  > b.blocked_at ? 1 : -1;
+                }else if (a.blocked_at){
+                    return 1;
+                }else if (b.blocked_at){
+                    return -1;
+                }
+                if (a.last_message_date && b.last_message_date){
+                    return b.last_message_date.localeCompare(
+                        a.last_message_date
+                    );
+                }else if (a.last_message_date){
+                    return -1;
+                }else if (b.last_message_date){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            })
+        );
+    }, [localConversations]);
 
     useEffect(()=> {
         Echo.join("online")
