@@ -14,7 +14,7 @@ const ChatLayout = ({ children }) => {
     const isUserOnline = (userId) => onlineUSers[userId];
 
     console.log("conversations", conversations);
-    console.log("selectedConversations", selectedConversations);
+    console.log("selectedConversations", selectedConversation);
 
     useEffect(() =>{
         setLocalConversatioins(conversations);
@@ -45,9 +45,9 @@ const ChatLayout = ({ children }) => {
         );
     }, [localConversations]);
 
-    useEffect(()=> {
+    useEffect(() => {
         Echo.join("online")
-            .here((users)=> {
+            .here((users) => {
               const onlineUsersObj = Object.fromEntries(
                 users.map((user)=> [user.id, user])
               );
@@ -79,10 +79,32 @@ const ChatLayout = ({ children }) => {
 
     }, []);
 
+
+    // useEffect(() => {
+    //     Echo.join('online')
+    //      .here((users) => {
+    //         console.log('here', users)
+    //      })
+    //      .joining((users) => {
+    //         console.log('joining', users)
+    //      })
+    //      .leaving((users) => {
+    //         console.log('leaving', users)
+    //      });
+    // }, []);
+
     return (
     <>
-        ChatLayout
-        <div>{children}</div>
+        <div className="flex-1 w-full flex overflow-hidden">
+            <div
+                className={`transition-all w-full sm:w-[200px] md:w-[300px]`}
+            >
+
+            </div>
+            <div className="flex-1 flex flex-col overflow-hidden">
+                {children}
+            </div>
+        </div>
     </>
     );
     
