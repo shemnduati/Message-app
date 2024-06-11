@@ -93,18 +93,7 @@ const ChatLayout = ({ children }) => {
     }, []);
 
 
-    // useEffect(() => {
-    //     Echo.join('online')
-    //      .here((users) => {
-    //         console.log('here', users)
-    //      })
-    //      .joining((users) => {
-    //         console.log('joining', users)
-    //      })
-    //      .leaving((users) => {
-    //         console.log('leaving', users)
-    //      });
-    // }, []);
+
 
     return (
     <>
@@ -115,8 +104,8 @@ const ChatLayout = ({ children }) => {
                         selectedConversation ? "-ml-[100%] sm:ml-0" : ""
                     }`}
             >
-                <div className="flex items-center justify-between py-2 text-xl
-                font-medium">
+                <div className="flex items-center justify-between py-2 px-3 text-xl
+                font-medium text-gray-200">
                     My Conversations
                     <div
                         className="tooltip tooltip-left"
