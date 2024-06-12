@@ -40,4 +40,9 @@ class Conversation extends Model
             return $group->toConversationArray();
         }));
     }
+
+    public static function updateConversationWithMessage($userId1, $userId2, $message)
+    {
+        
+    }
 }
