@@ -1,8 +1,14 @@
 import ChatLayout from '@/Layouts/ChatLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { useEffect, useState } from 'react';
 
 
-function Home({ auth }) {
+function Home({ messages }) {
+    cosnt [localMessages, setLocalMessages] = useState([]);
+
+    useEffect(() => {
+        setLocalMessages(messages)
+    }, [messages]);
     return (
         <>
         Messages
