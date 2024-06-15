@@ -4,6 +4,7 @@ import UserAvatar from "./UserAvatar";
 import GroupAvatar from "./GroupAvatar";
 
 const ConversationHeader = ({selectedConversation}) => {
+    console.log("Selected Conversation", selectedConversation);
     return(
         <>
             {selectedConversation && (
@@ -20,13 +21,16 @@ const ConversationHeader = ({selectedConversation}) => {
                             <UserAvatar user={selectedConversation} />
                         )}
                         {selectedConversation.is_group && <GroupAvatar />}
-                    </div>
+                        <div>
                         <h3>{selectedConversation.name}</h3>
-                        {selectedConversation-is_group && (
+                        {selectedConversation.is_group && (
                             <p className="text-sm text-gray-500">
-                                {selectedConversation.users-length} members
+                                {selectedConversation.users.length} members
                             </p>
                         )}
+                        </div>
+                    </div>
+                       
                 </div>
             )}
         </>

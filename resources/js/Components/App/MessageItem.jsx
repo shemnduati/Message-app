@@ -1,19 +1,24 @@
 import { usePage } from "@inertiajs/react";
 import UserAvatar from "./UserAvatar";
+import ReactMarkdown from "react-markdown";
+import React from "react";
+import { formatMessageDateLong } from "@/helpers";
 
-const MessageItem = ({message, attachmentClick}) =>{
+const MessageItem = ({message}) => {
     const currentUser = usePage().props.auth.user;
+   
     return (
         <div
             className={
                 "chat " + 
-                (message.sender+id === currentUser.id
+                (message.sender_id === currentUser.id
                     ? "chat-end"
-                    : "chart-start"
+                    : "chat-start"
                 )
             }
         >
             {<UserAvatar user={message.sender} />}
+
             <div className="chat-header">
                 {message.sender_id !== currentUser.id
                     ? message.sender.name 
@@ -25,7 +30,7 @@ const MessageItem = ({message, attachmentClick}) =>{
             </div>
             <div
                 className={
-                    "chat-bubble relative" +
+                    "chat-bubble relative " +
                     (message.sender_id === currentUser.id
                         ? " chat-bubble-info"
                         : ""
@@ -34,7 +39,7 @@ const MessageItem = ({message, attachmentClick}) =>{
             >
                 <div className="chat-message">
                     <div className="chat-message-content">
-                        
+                        <ReactMarkdown>{message.message}</ReactMarkdown>
                     </div>
 
                 </div>

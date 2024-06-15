@@ -8,7 +8,7 @@ import ConversationItem from "@/Components/App/ConversationItem";
 const ChatLayout = ({ children }) => {
     const page = usePage();
     const conversations = page.props.conversations;
-    const selectedConversation = page.props.selectedCoversation;
+    const selectedConversation = page.props.selectedConversation;
     const [localConversations, setLocalConversatioins] = useState([]);
     const [sortedConversations, setSortedConversations] = useState([]);
     const [onlineUsers, setOnlineUsers] =  useState({});
@@ -16,7 +16,7 @@ const ChatLayout = ({ children }) => {
     const isUserOnline = (userId) => onlineUsers[userId];
 
     console.log("conversations", conversations);
-    console.log("selectedConversations", selectedConversation);
+    console.log("selectedConversation", selectedConversation);
 
     const OnSearch = (ev) =>  {
         const search = ev.target.value.toLowerCase();
