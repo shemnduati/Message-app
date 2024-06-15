@@ -17,18 +17,19 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
         },
+        screens: {
+            xs: "420px",
+            sm: "680px",
+            md: "768px",
+            lg: "1024px",
+            xl: "1280px",
+            "2xl": "1536px",
+        }
     },
 
     plugins: [forms, require("daisyui")],
 
     daisyiu: {
-        themes:true,
-        darkTheme: "dark",
-        base: true,
-        styled: true,
-        utils: true,
-        prefix: " ",
-        logs:true,
-        themeRoot: "root",
+        themes: ["dark"],
     },
 };
