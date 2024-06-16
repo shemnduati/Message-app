@@ -6,6 +6,41 @@ const MessageInput = ({ conversation = null}) => {
     const [newMessage, setNewMessage] = useState("");
     const [inputErrorMessage, setinputErrorMessage,]  = useState("");
     const [messageSending, setmessageSending ] =   useState(false);
+
+    const onSendClick = () => {
+        if (newMessage.trim() === ""){
+            setinputErrorMessage("Please enter a message or upload attachment");
+
+            setTimeout(() =>{
+                setinputErrorMessage("");
+            }, 3000);
+
+            return;
+        }
+
+        const formData  =  new FormData();
+        formData.append("message", newMessage);
+        if(conversation.is_user){
+            formData.append("receiver_id", conversation.id);
+        }else if(conversation.is_group){
+            formData.append("group_id", conversation.id);
+        }
+
+        setmessageSending(true);
+        // send message to server
+        axios.post(route("message.store"), formData, {
+            onUploadProgress: (progressEvent) => {
+                const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                console.log(progress);
+            }
+        }).then((response) => {
+            setNewMessage("");
+            setmessageSending(false);
+        }).catch((error) => {
+            setmessageSending(false);
+        })
+    }
+
     return ( 
         <div className="flex  flex-wrap items-start border-t border-slate-700 py-3"> 
             <div className="order-2 flex-1 xs:flex-none xs:order-1 p-2">
@@ -33,7 +68,7 @@ const MessageInput = ({ conversation = null}) => {
                         value={newMessage}
                         onChange={(ev) => setNewMessage(ev.target.value)}
                     />
-                    <button className="btn btn-info rounded-1-none">
+                    <button onClick={onSendClick} className="btn btn-info rounded-1-none">
                         {messageSending && (
                             <span className="loading loading-spinner loading-xs"></span>
                         )}
