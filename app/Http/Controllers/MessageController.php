@@ -69,7 +69,8 @@ class MessageController extends Controller
 
      public function store(StoreMessageRequest $request)
      {
-        $data = $request->validate();
+       
+        $data = $request->validated();
         $data['sender_id'] = auth()->id();
         $receiverId = $data['receiver_id'] ?? null;
         $groupId = $data['group_id'] ?? null;
@@ -98,7 +99,7 @@ class MessageController extends Controller
         }
 
         if($receiverId){
-            Conversation::updateConversationWithMessage($receiverId, auth()->id, $message);
+            Conversation::updateConversationWithMessage($receiverId, auth()->id(), $message);
         }
 
         if($groupId){

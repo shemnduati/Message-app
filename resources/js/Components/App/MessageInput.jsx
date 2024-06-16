@@ -66,6 +66,7 @@ const MessageInput = ({ conversation = null}) => {
                 <div className="flex">
                     <NewMessageInput
                         value={newMessage}
+                        onSend={onSendClick}
                         onChange={(ev) => setNewMessage(ev.target.value)}
                     />
                     <button onClick={onSendClick} className="btn btn-info rounded-1-none">
