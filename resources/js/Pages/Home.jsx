@@ -1,16 +1,18 @@
 import ChatLayout from '@/Layouts/ChatLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
 import ConversationHeader from '@/Components/App/ConversationHeader';
 import MessageItem from '@/Components/App/MessageItem';
 import MessageInput from '@/Components/App/MessageInput';
 import { useEventBus } from '@/EventBus';
+import axios from 'axios';
 
 
 function Home({ selectedConversation = null, messages = null }) {
     const [localMessages, setLocalMessages] = useState([]);
     const messagesCtrRef = useRef(null);
+    const loadMoreIntersect = useRef(null);
     const { on } =  useEventBus();
 
     const messageCreated = (message) => {
@@ -29,6 +31,33 @@ function Home({ selectedConversation = null, messages = null }) {
             setLocalMessages((prevMessages) => [...prevMessages, message]);
         }
     };
+
+
+    const loadMoreMessages = useCallback(() => {
+        // find the firsty message object
+        const firstMessage = localMessages[0];
+        axios
+            .get(route("message.loadOlder" , firstMessage.id))
+            .then(({ data }) => {
+                if (data.data.length ===  0) {
+                    setNoMoreMessages(true);
+                    return;
+                }
+                // Calculate how much is scrolled from the bottom and  sroll to the same postion
+                //from bottom after message are loaded
+                const scrollHeight  = messagesCtrRef.current.scrollHeight;
+                const scrollTop = messagesCtrRef.current.scrollTop;
+                const clientHeight = messagesCtrRef.current.clientHeight;
+                const tmpScrollFromBottom = 
+                    scrollHeight - scrollTop - clientHeight;
+                    console.log("tmpSxcrollFromBottom", tmpScrollFromBottom);
+                    setScrollFromBottom(scrollHeight - scrollTop - clientHeight);
+
+                    setLocalMessages((prevMessages) => {
+                        return [...data.data.reverse(), ...prevMessages]; 
+                    })
+            })
+    },[localMessages]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -74,6 +103,7 @@ function Home({ selectedConversation = null, messages = null }) {
                         )}
                         {localMessages.length > 0 && (
                             <div className="flex-1 flex flex-col">
+                                <div ref={loadMoreIntersect}></div>
                                 {localMessages.map((message) => (
                                      <MessageItem
                                      key={message.id}
