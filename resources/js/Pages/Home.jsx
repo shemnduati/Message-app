@@ -11,6 +11,8 @@ import axios from 'axios';
 
 function Home({ selectedConversation = null, messages = null }) {
     const [localMessages, setLocalMessages] = useState([]);
+    const [noMoreMessages, setNoMoreMessages] = useState(false);
+    const [scrollFromBottom, setScrollFromBottom] =useState(0);
     const messagesCtrRef = useRef(null);
     const loadMoreIntersect = useRef(null);
     const { on } =  useEventBus();
@@ -75,6 +77,40 @@ function Home({ selectedConversation = null, messages = null }) {
     useEffect(() => {
         setLocalMessages(messages ? messages.data.reverse() : []);
     }, [messages]);
+
+    useEffect(() => {
+        if(messagesCtrRef.current && scrollFromBottom !== null ){
+            messagesCtrRef.current.scrollTop =                                                                                                                      
+             messagesCtrRef.current.scrollHeight -
+             messagesCtrRef.current.offsetHeight -
+                scrollFromBottom;
+        }
+
+        if(noMoreMessages){
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) =>
+            entries.forEach(
+                (entry) => entry.isIntersecting && loadMoreMessages()
+            ),
+            {
+                rootMargin: "0px 0px 250px 0px",
+            }
+        );
+
+        if(loadMoreIntersect.current) {
+            setTimeout(() => {
+                observer.observe(loadMoreIntersect.current);
+            }, 100); 
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    },[localMessages]);
+
     return (
         <>
         {!messages && (
