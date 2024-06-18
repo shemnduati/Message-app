@@ -59,7 +59,7 @@ class Conversation extends Model
             Conversation::create([
                 'user_id1' => $userId1,
                 'user_id2' => $userId2,
-                'last_ messsage_id' => $message->id,
+                'last_message_id' => $message->id,
             ]);
         }
     }

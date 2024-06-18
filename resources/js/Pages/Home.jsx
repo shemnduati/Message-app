@@ -18,6 +18,7 @@ function Home({ selectedConversation = null, messages = null }) {
     const { on } =  useEventBus();
 
     const messageCreated = (message) => {
+        console.log(selectedConversation);
         if(
             selectedConversation &&
             selectedConversation.is_group &&
@@ -30,6 +31,7 @@ function Home({ selectedConversation = null, messages = null }) {
             selectedConversation.is_user &&
             (selectedConversation.id == message.sender_id || selectedConversation.id == message.receiver_id)
         ){
+           
             setLocalMessages((prevMessages) => [...prevMessages, message]);
         }
     };
@@ -57,8 +59,8 @@ function Home({ selectedConversation = null, messages = null }) {
 
                     setLocalMessages((prevMessages) => {
                         return [...data.data.reverse(), ...prevMessages]; 
-                    })
-            })
+                    });
+            });
     },[localMessages]);
 
     useEffect(() => {
@@ -68,12 +70,14 @@ function Home({ selectedConversation = null, messages = null }) {
                 messagesCtrRef.current.scrollHeight;
             }
         }, 10);
+
         const offCreated  = on('message.created', messageCreated);
 
         return () => {
             offCreated();
         }
     },[selectedConversation]);
+
     useEffect(() => {
         setLocalMessages(messages ? messages.data.reverse() : []);
     }, [messages]);

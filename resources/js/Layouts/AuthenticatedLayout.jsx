@@ -11,7 +11,7 @@ export default function Authenticated({ header, children }) {
     const user = page.props.auth.user;
     const conversations = page.props.conversations;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-    const emit = useEventBus();
+    const { emit } = useEventBus();
 
     useEffect(() => {
         conversations.forEach((conversation) => {
@@ -27,31 +27,31 @@ export default function Authenticated({ header, children }) {
                 }`;
             }
             Echo.private(channel)
-               .error((error) =>{
-                console.log(error);
+               .error((error) => {
+                console.error(error);
                })
                .listen('SocketMessage', (e) => {
-                console.log("SocketMessage", e);
-                // handle incoming message
-                const message = e.message;
+                    console.log("SocketMessage", e);
+                    // handle incoming message
+                    const message = e.message;
 
-                // emit("message.created", message);
-                // if(message.sender_id === user.id){
-                //     return;
-                // }
+                    emit("message.created", message);
+                    if(message.sender_id === user.id){
+                        return;
+                    }
 
-                // emit("newMessageNotification", {
-                //     user: message.sender,
-                //     group_id: message.group_id,
-                //     message:
-                //         message.message ||
-                //             `Shared ${
-                //                 message.attachments.length === 1
-                //                     ? "an attachment"
-                //                     : message.attachments.length +
-                //                         " attachments"
-                //             }`,
-                // });
+                    emit("newMessageNotification", {
+                        user: message.sender,
+                        group_id: message.group_id,
+                        message:
+                            message.message ||
+                                `Shared ${
+                                    message.attachments.length === 1
+                                        ? "an attachment"
+                                        : message.attachments.length +
+                                            " attachments"
+                                }`,
+                    });
             });
         })
         return () => {

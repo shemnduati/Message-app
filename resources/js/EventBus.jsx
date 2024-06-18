@@ -4,6 +4,7 @@ export const EventBusContext = React.createContext();
 
 export const EventBusProvider = ({ children }) => {
     const [events, setEvents] = React.useState({});
+    
     const emit = (name, data) => {
         if (events[name]) {
             for(let cb of events[name]){

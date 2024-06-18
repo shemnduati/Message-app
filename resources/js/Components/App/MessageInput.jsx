@@ -5,7 +5,7 @@ import NewMessageInput from "./NewMessageInput";
 const MessageInput = ({ conversation = null}) => {
     const [newMessage, setNewMessage] = useState("");
     const [inputErrorMessage, setinputErrorMessage,]  = useState("");
-    const [messageSending, setmessageSending ] =   useState(false);
+    const [messageSending, setMessageSending ] =   useState(false);
 
     const onSendClick = () => {
         if (newMessage.trim() === ""){
@@ -26,7 +26,7 @@ const MessageInput = ({ conversation = null}) => {
             formData.append("group_id", conversation.id);
         }
 
-        setmessageSending(true);
+        setMessageSending(true);
         // send message to server
         axios.post(route("message.store"), formData, {
             onUploadProgress: (progressEvent) => {
@@ -35,9 +35,9 @@ const MessageInput = ({ conversation = null}) => {
             }
         }).then((response) => {
             setNewMessage("");
-            setmessageSending(false);
+            setMessageSending(false);
         }).catch((error) => {
-            setmessageSending(false);
+            setMessageSending(false);
         })
     }
 
