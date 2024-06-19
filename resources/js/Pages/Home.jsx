@@ -38,6 +38,10 @@ function Home({ selectedConversation = null, messages = null }) {
 
 
     const loadMoreMessages = useCallback(() => {
+
+        if(noMoreMessages){
+            return;
+        }
         // find the firsty message object
         const firstMessage = localMessages[0];
         axios
@@ -61,7 +65,7 @@ function Home({ selectedConversation = null, messages = null }) {
                         return [...data.data.reverse(), ...prevMessages]; 
                     });
             });
-    },[localMessages]);
+    },[localMessages, noMoreMessages]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -72,6 +76,9 @@ function Home({ selectedConversation = null, messages = null }) {
         }, 10);
 
         const offCreated  = on('message.created', messageCreated);
+
+        setScrollFromBottom(0);
+        setNoMoreMessages(false);
 
         return () => {
             offCreated();

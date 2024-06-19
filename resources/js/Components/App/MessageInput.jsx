@@ -8,6 +8,9 @@ const MessageInput = ({ conversation = null}) => {
     const [messageSending, setMessageSending ] =   useState(false);
 
     const onSendClick = () => {
+        if(messageSending){
+            return;
+        } 
         if (newMessage.trim() === ""){
             setinputErrorMessage("Please enter a message or upload attachment");
 
@@ -69,7 +72,10 @@ const MessageInput = ({ conversation = null}) => {
                         onSend={onSendClick}
                         onChange={(ev) => setNewMessage(ev.target.value)}
                     />
-                    <button onClick={onSendClick} className="btn btn-info rounded-1-none">
+                    <button 
+                    onClick={onSendClick}
+                    disabled={messageSending}
+                     className="btn btn-info rounded-1-none">
                         {messageSending && (
                             <span className="loading loading-spinner loading-xs"></span>
                         )}

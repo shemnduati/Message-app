@@ -37,7 +37,7 @@ export const formatMessageDateShort = (date) => {
         });
     } else if(isYestarday(inputDate)) {
         return "Yesterday";
-    } else if(inputDate.getFullYear() === now.getFullYear()) {d
+    } else if(inputDate.getFullYear() === now.getFullYear()) {
         return inputDate.toLocaleDateString([], {
             day: "2-digit",
             month: "short",
