@@ -8,6 +8,8 @@ const MessageInput = ({ conversation = null}) => {
     const [newMessage, setNewMessage] = useState("");
     const [inputErrorMessage, setinputErrorMessage,]  = useState("");
     const [messageSending, setMessageSending ] =   useState(false);
+    const [chosenFiles, setChosenFiles] = useState([]);
+    const [uploadingProgress, setUploadingProgress] = useState(0);
 
     const onSendClick = () => {
         if(messageSending){
@@ -51,8 +53,6 @@ const MessageInput = ({ conversation = null}) => {
         if(messageSending) {
             return;
         }
-
-        setNewMessage("👍");
 
         const data = {
             message: "👍",
