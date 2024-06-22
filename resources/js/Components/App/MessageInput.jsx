@@ -11,6 +11,17 @@ const MessageInput = ({ conversation = null}) => {
     const [chosenFiles, setChosenFiles] = useState([]);
     const [uploadingProgress, setUploadingProgress] = useState(0);
 
+    const onFileChange = (ev) => {
+        const files = ev.target.files;
+
+        const updatedFiles = [...files].map((file) => {
+            return {
+                file: file,
+                url: URL.createObjectURL(file)
+            }
+        })
+    }
+
     const onSendClick = () => {
         if(messageSending){
             return;
