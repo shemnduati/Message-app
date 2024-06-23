@@ -19,6 +19,10 @@ const MessageInput = ({ conversation = null}) => {
                 file: file,
                 url: URL.createObjectURL(file)
             }
+        });
+
+        setChosenFiles((prevFiles) => {
+            return [...prevFiles, ...updatedFiles];
         })
     }
 
