@@ -41,6 +41,9 @@ const MessageInput = ({ conversation = null}) => {
         }
 
         const formData  =  new FormData();
+        chosenFiles.forEach((file) => {
+            formData.append("attachements[]", file.file);
+        });
         formData.append("message", newMessage);
         if(conversation.is_user){
             formData.append("receiver_id", conversation.id);
