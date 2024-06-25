@@ -9,7 +9,7 @@ const MessageInput = ({ conversation = null}) => {
     const [inputErrorMessage, setinputErrorMessage,]  = useState("");
     const [messageSending, setMessageSending ] =   useState(false);
     const [chosenFiles, setChosenFiles] = useState([]);
-    const [uploadingProgress, setUploadingProgress] = useState(0);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const onFileChange = (ev) => {
         const files = ev.target.files;
@@ -57,12 +57,20 @@ const MessageInput = ({ conversation = null}) => {
             onUploadProgress: (progressEvent) => {
                 const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                 console.log(progress);
+                setUploadProgress(progress);
             }
         }).then((response) => {
             setNewMessage("");
             setMessageSending(false);
+            setUploadProgress(0);
+            setChosenFiles([]);
         }).catch((error) => {
             setMessageSending(false);
+            setChosenFiles([]);
+            const message = error?.response?.data?.message;
+            setinputErrorMessage(
+                message || "An error ocurrred while sending message"
+            )
         })
     }
 
@@ -95,6 +103,7 @@ const MessageInput = ({ conversation = null}) => {
                     <input
                         type="file"
                         multiple
+                        onChange={onFileChange}
                         className="absolute left-0 top-0 right-0 bottom-0 z-20 opacity-0 cursor-pointer"
                     />
                 </button>
@@ -103,6 +112,7 @@ const MessageInput = ({ conversation = null}) => {
                    <input
                         type="file"
                         multiple
+                        onChange={onFileChange}
                         accept="image/*"
                         className="absolute left-0 top-0 right-0 bottom-0 z-20 opacity-0 cursor-pointer"
                     />
@@ -126,6 +136,13 @@ const MessageInput = ({ conversation = null}) => {
                         <span className="hidden sm:inline">Send</span>
                     </button>
                 </div>
+                {!!uploadProgress && (
+                    <progress
+                        className="progress progress-info w-full"
+                        value={uploadProgress}
+                        max="100"
+                    ></progress>
+                )}
                 {inputErrorMessage && (
                     <p className="text-xs text-red-400">{inputErrorMessage}</p>
                 )}
