@@ -148,7 +148,15 @@ const MessageInput = ({ conversation = null}) => {
                 )}
                 <div className="flex flex-wrap gap-1 mt-2">
                      {chosenFiles.map((file) => (
-                        
+                        <div
+                            key={file.file.name}
+                            className={
+                                `relative flex items-center justify-center cursor-pointer` + 
+                                (!isImage(file.file) ? " w-[240px]" : "")
+                            }
+                        >
+
+                        </div>
                      ))}
                 </div>
             </div>
