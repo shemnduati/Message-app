@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react";
-import { PaperClipIcon, PhotoIcon, FaceSmileIcon, HandThumbUpIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import { PaperClipIcon, PhotoIcon, FaceSmileIcon, HandThumbUpIcon, PaperAirplaneIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import NewMessageInput from "./NewMessageInput";
 import EmojiPicker from "emoji-picker-react";
 import { Popover, Transition } from "@headlessui/react";
@@ -174,9 +174,20 @@ const MessageInput = ({ conversation = null}) => {
                             )}
 
                             <button 
-                                onClick={() => removeFile(file)}
-                                className=""
-                            ></button>
+                                onClick={() =>
+                                    setChosenFiles(
+                                        chosenFiles.filter(
+                                            (f) => 
+                                                f.file.name !== file.file.name
+                                        )
+                                    )
+
+                                }
+                                className="absolute w-6 h-6 rounded-full bg-gray-800 -right-2
+                                -top-2 text-gray-300 hover:text-gray-100 z-100"
+                            >
+                                <XCircleIcon className="w-6" />
+                            </button>
 
                         </div>
                      ))}
