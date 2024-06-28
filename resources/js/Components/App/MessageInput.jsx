@@ -155,6 +155,28 @@ const MessageInput = ({ conversation = null}) => {
                                 (!isImage(file.file) ? " w-[240px]" : "")
                             }
                         >
+                            {isImage(file.file) && (
+                                <img
+                                    src={file.url}
+                                    alt=""
+                                    className="w-16 h-16 object-cover"
+                                />
+                            )}
+
+                            {isAudio(file.file) && (
+                                <cutomAudioPlayer
+                                    file={file}
+                                    showVolume={false}
+                                />
+                            )} 
+                            {!isAudio(file.file) && !isImage(file.file) && (
+                                <AttachemtPreview file={file} />
+                            )}
+
+                            <button 
+                                onClick={() => removeFile(file)}
+                                className=""
+                            ></button>
 
                         </div>
                      ))}
