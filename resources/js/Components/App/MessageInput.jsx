@@ -3,6 +3,9 @@ import { PaperClipIcon, PhotoIcon, FaceSmileIcon, HandThumbUpIcon, PaperAirplane
 import NewMessageInput from "./NewMessageInput";
 import EmojiPicker from "emoji-picker-react";
 import { Popover, Transition } from "@headlessui/react";
+import { isAudio, isImage } from "@/helpers";
+import AttachmentPreview from "./AttachmentPreview";
+import CustomAudioPlayer from "./CustomAudioPlayer";
 
 const MessageInput = ({ conversation = null}) => {
     const [newMessage, setNewMessage] = useState("");
@@ -164,13 +167,13 @@ const MessageInput = ({ conversation = null}) => {
                             )}
 
                             {isAudio(file.file) && (
-                                <cutomAudioPlayer
+                                <CustomAudioPlayer
                                     file={file}
                                     showVolume={false}
                                 />
                             )} 
                             {!isAudio(file.file) && !isImage(file.file) && (
-                                <AttachemtPreview file={file} />
+                                <AttachmentPreview file={file} />
                             )}
 
                             <button 
