@@ -1,4 +1,4 @@
-import { isPDF, isPreviewable } from "@/helpers";
+import { isAudio, isImage, isPDF, isPreviewable, isVideo } from "@/helpers";
 import { ArrowDownTrayIcon, PaperClipIcon, PlayCircleIcon } from "@heroicons/react/24/solid";
 
 
@@ -6,9 +6,9 @@ import { ArrowDownTrayIcon, PaperClipIcon, PlayCircleIcon } from "@heroicons/rea
 const MessageAttachments =  ({ attachments, attachmentClick }) => {
     return (
         <>
-        {attachments.lenght > 0 && (
+        {attachments.length > 0 && (
             <div className="mt-2 flex flex-wrap justify-end gap-1">
-                {attachments.map((attachment, index) => (
+                {attachments.map((attachment, ind) => (
                     <div 
                         onClick= {(ev) => attachmentClick(attachments, ind)}    
                         key={attachment.id}

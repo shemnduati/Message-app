@@ -1,3 +1,4 @@
+import React from "react";
 import { formatBytes, isPreviewable, isPDF } from "@/helpers";
 import { PaperClipIcon } from "@heroicons/react/24/solid";
 

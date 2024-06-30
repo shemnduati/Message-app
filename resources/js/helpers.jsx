@@ -69,23 +69,23 @@ export const isYestarday = (date) => {
 export const isImage = (attachment) => {
     let mime = attachment.mime || attachment.type;
     mime  =  mime.split("/");
-    return mime[0].toLowerCase === "image";
+    return mime[0].toLowerCase() === "image";
 };
 
 export const isVideo= (attachment) => {
     let mime = attachment.mime || attachment.type;
     mime  =  mime.split("/");
-    return mime[0].toLowerCase === "video";
+    return mime[0].toLowerCase() === "video";
 };
 export const isAudio = (attachment) => {
     let mime = attachment.mime || attachment.type;
     mime  =  mime.split("/");
-    return mime[0].toLowerCase === "audio";
+    return mime[0].toLowerCase() === "audio";
 };
 
 export const isPDF = (attachment) => {
     let mime = attachment.mime || attachment.type;
-    return mime[0].toLowerCase === "application/pdf";
+    return mime  === "application/pdf";
 };
 
 
@@ -107,10 +107,10 @@ export const formatBytes = (bytes, decimals = 2) => {
 
     let i = 0;
     let size = bytes;
-    while (size > k ) {
+    while (size >= k ) {
         size /= k;
         i++;
     }
-    
-    return parseFloat(size.toFixedc(dm)) + " " + size[i];
+
+    return parseFloat(size.toFixed(dm)) + " " + sizes[i];
 }

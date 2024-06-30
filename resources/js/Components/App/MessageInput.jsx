@@ -33,7 +33,7 @@ const MessageInput = ({ conversation = null}) => {
         if(messageSending){
             return;
         } 
-        if (newMessage.trim() === ""){
+        if (newMessage.trim() === "" || chosenFiles.lenght === 0){
             setinputErrorMessage("Please enter a message or upload attachment");
 
             setTimeout(() =>{
