@@ -20,6 +20,7 @@ const MessageAttachments =  ({ attachments, attachmentClick }) => {
                                 :"w-32 aspect-square bg-blue-100")
                         }
                     >
+                       
                         {!isAudio(attachment) && (
                             <a
                                 onClick={(ev) => ev.stopPropagation()}
@@ -77,7 +78,7 @@ const MessageAttachments =  ({ attachments, attachmentClick }) => {
                             className="flex flex-col justify-center items-center"
                           >
                             <PaperClipIcon className="w-10 h-10 mb-3" />
-                            <small>{attachment.name}</small>
+                            <small className="text-center">{attachment.name}</small>
                           </a>
                         )}
                     </div>

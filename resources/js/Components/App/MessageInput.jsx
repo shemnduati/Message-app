@@ -33,7 +33,7 @@ const MessageInput = ({ conversation = null}) => {
         if(messageSending){
             return;
         } 
-        if (newMessage.trim() === "" || chosenFiles.lenght === 0){
+        if (newMessage.trim() === "" && chosenFiles.length === 0){
             setinputErrorMessage("Please enter a message or upload attachment");
 
             setTimeout(() =>{
@@ -154,7 +154,7 @@ const MessageInput = ({ conversation = null}) => {
                         <div
                             key={file.file.name}
                             className={
-                                `relative flex items-center justify-center cursor-pointer` + 
+                                `relative flex items-center justify-between cursor-pointer` + 
                                 (!isImage(file.file) ? " w-[240px]" : "")
                             }
                         >

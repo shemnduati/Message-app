@@ -7,6 +7,7 @@ import MessageItem from '@/Components/App/MessageItem';
 import MessageInput from '@/Components/App/MessageInput';
 import { useEventBus } from '@/EventBus';
 import axios from 'axios';
+import AttachmentsPreviewModal from '@/Components/App/AttachmentsPreviewModal';
 
 
 function Home({ selectedConversation = null, messages = null }) {
@@ -179,7 +180,7 @@ function Home({ selectedConversation = null, messages = null }) {
                 attachments={previewAttachment.attachments}
                 index={previewAttachment.ind}
                 show={showAttachmentPreview}
-                onClose={()=> setShowAttachmentPreview(false)}
+                onClose={() => setShowAttachmentPreview(false)}
             />
         )}
        </>
