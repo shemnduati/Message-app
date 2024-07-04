@@ -35,6 +35,7 @@ const MessageInput = ({ conversation = null}) => {
             return;
         } 
         if (newMessage.trim() === "" && chosenFiles.length === 0){
+            console.log("chossen file",chosenFiles);
             setinputErrorMessage("Please enter a message or upload attachment");
 
             setTimeout(() =>{
@@ -46,7 +47,7 @@ const MessageInput = ({ conversation = null}) => {
 
         const formData  =  new FormData();
         chosenFiles.forEach((file) => {
-            formData.append("attachements[]", file.file);
+            formData.append("attachments[]", file.file);
         });
         formData.append("message", newMessage);
         if(conversation.is_user){
