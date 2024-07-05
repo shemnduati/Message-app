@@ -22,7 +22,7 @@ const MessageInput = ({ conversation = null}) => {
             return {
                 file: file,
                 url: URL.createObjectURL(file)
-            }
+            };
         });
 
         setChosenFiles((prevFiles) => {
@@ -35,20 +35,20 @@ const MessageInput = ({ conversation = null}) => {
             return;
         } 
         if (newMessage.trim() === "" && chosenFiles.length === 0){
-            console.log("chossen file",chosenFiles);
             setinputErrorMessage("Please enter a message or upload attachment");
-
             setTimeout(() =>{
                 setinputErrorMessage("");
             }, 3000);
 
             return;
         }
-
+       
         const formData  =  new FormData();
         chosenFiles.forEach((file) => {
+            console.log("file:",file);
             formData.append("attachments[]", file.file);
         });
+      
         formData.append("message", newMessage);
         if(conversation.is_user){
             formData.append("receiver_id", conversation.id);
@@ -100,9 +100,7 @@ const MessageInput = ({ conversation = null}) => {
 
 
     const recordedAudioReady = (file, url) => {
-        setChosenFiles((prevFiles) =>{
-            return [...prevFiles, {file, url}];
-        })
+        setChosenFiles((prevFiles) => [...prevFiles, {file, url}]);
     };
    
 
