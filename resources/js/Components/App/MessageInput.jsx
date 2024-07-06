@@ -8,6 +8,7 @@ import AttachmentPreview from "./AttachmentPreview";
 import CustomAudioPlayer from "./CustomAudioPlayer";
 import AudioRecoder from "./AudioRecorder";
 
+
 const MessageInput = ({ conversation = null}) => {
     const [newMessage, setNewMessage] = useState("");
     const [inputErrorMessage, setinputErrorMessage,]  = useState("");
