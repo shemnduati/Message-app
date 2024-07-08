@@ -47,7 +47,7 @@ function Home({ selectedConversation = null, messages = null }) {
             selectedConversation.id == message.group_id
         ){
             setLocalMessages((prevMessages) => {
-                return prevMessages.filter((m) => m.id !== message.id);
+                return prevMessages.filter((m) => m.id != message.id);
             });
             
         }
@@ -58,7 +58,7 @@ function Home({ selectedConversation = null, messages = null }) {
         ){
            
             setLocalMessages((prevMessages) => {
-                return prevMessages.filter((m) => m.id !== message.id);
+                return prevMessages.filter((m) => m.id != message.id);
             });
         }
     };
@@ -111,8 +111,8 @@ function Home({ selectedConversation = null, messages = null }) {
             }
         }, 10);
 
-        const offCreated  = on('message.created', messageCreated);
-        const offDeleted  = on('message.deleted', messageDeleted);
+        const offCreated  = on("message.created", messageCreated);
+        const offDeleted  = on("message.deleted", messageDeleted);
 
         setScrollFromBottom(0);
         setNoMoreMessages(false);

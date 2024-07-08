@@ -40,7 +40,7 @@ class Conversation extends Model
             return $group->toConversationArray();
         }));
     }
-
+ 
     public static function updateConversationWithMessage($userId1, $userId2, $message)
     {
         $conversation = Conversation::where(function ($query) use ($userId1, $userId2){
