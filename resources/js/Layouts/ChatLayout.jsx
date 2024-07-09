@@ -90,6 +90,7 @@ const ChatLayout = ({ children }) => {
                 });
     };
 
+    // Comment
     useEffect(() => {
         const offCreated = on("message.created", messageCreated)
         const offDeleted  = on("message.deleted", messageDeleted);
