@@ -56,7 +56,7 @@ const ChatLayout = ({ children }) => {
         });
     };
 
-    const messageDeleted = ({prevMessage}) => {
+    const messageDeleted = ({ prevMessage }) => {
         // if the previous message doesnt exist
         if(!prevMessage){
             return;
