@@ -40,7 +40,7 @@ function Home({ selectedConversation = null, messages = null }) {
     };
 
 
-    const messageDeleted = (message) => {
+    const messageDeleted = ({message}) => {
         if(
             selectedConversation &&
             selectedConversation.is_group &&
